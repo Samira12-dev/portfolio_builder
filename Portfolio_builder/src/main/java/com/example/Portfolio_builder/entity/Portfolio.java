@@ -1,21 +1,20 @@
-package com.example.Portfolio_builder.entity;
-
-import jakarta.persistence.*;
-
-import java.time.LocalDateTime;
-
 @Entity
+@Data
 public class Portfolio {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true)
-    private String slug;
+    private String slug;            // yourname.portai.com slug
 
-    private boolean isPublished;
+    private boolean isPublished = false;
 
     private LocalDateTime publishedAt;
+
+    @Column(columnDefinition = "LONGTEXT")
+    private String generatedHtml;   // full HTML from AI
 
     @OneToOne
     @JoinColumn(name = "profile_id")
