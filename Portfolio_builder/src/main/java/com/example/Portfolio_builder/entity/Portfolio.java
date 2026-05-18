@@ -1,3 +1,12 @@
+package com.example.Portfolio_builder.entity;
+
+import com.example.Portfolio_builder.entity.Profile;
+import jakarta.persistence.*;
+import lombok.Data;
+import org.hibernate.sql.Template;
+
+import java.time.LocalDateTime;
+
 @Entity
 @Data
 public class Portfolio {

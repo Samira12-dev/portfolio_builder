@@ -1,3 +1,23 @@
+package com.example.Portfolio_builder.controller;
+
+import com.example.Portfolio_builder.dto.LoginDTO;
+import com.example.Portfolio_builder.dto.ProfileRequestDTO;
+import com.example.Portfolio_builder.dto.ProfileResponseDTO;
+import com.example.Portfolio_builder.dto.RegisterUserDTO;
+import com.example.Portfolio_builder.entity.Portfolio;
+import com.example.Portfolio_builder.repo.PortfolioRepository;
+import com.example.Portfolio_builder.service.AuthService;
+import com.example.Portfolio_builder.service.PortfolioGenerationService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.time.LocalDateTime;
+import java.util.Map;
+
 // AuthController.java
 @RestController
 @RequestMapping("/api/auth")

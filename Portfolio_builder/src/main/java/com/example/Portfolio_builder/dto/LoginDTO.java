@@ -1,9 +1,13 @@
 package com.example.Portfolio_builder.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-@Ar
+@AllArgsConstructor
+@NoArgsConstructor
 public class LoginDTO {
 
     @NotBlank

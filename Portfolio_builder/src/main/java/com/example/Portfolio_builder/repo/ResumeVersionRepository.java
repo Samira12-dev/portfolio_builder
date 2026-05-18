@@ -1,3 +1,11 @@
+package com.example.Portfolio_builder.repo;
+
+import com.example.Portfolio_builder.entity.ResumeVersion;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
 @Repository
 public interface ResumeVersionRepository extends JpaRepository<ResumeVersion, Long> {
     List<ResumeVersion> findByResumeId(Long resumeId);

@@ -1,7 +1,13 @@
 package com.example.Portfolio_builder.dto;
 
-import jakarta.persistence.Entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 
 public class ProjectResponseDTO {
     private String title;
