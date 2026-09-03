@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 
 public class RegisterUserDTO {
     @NotBlank
-   private String username;
+    private String username;
 
     @Email
     @NotBlank

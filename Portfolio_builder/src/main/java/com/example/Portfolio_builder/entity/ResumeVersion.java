@@ -1,10 +1,14 @@
 package com.example.Portfolio_builder.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ResumeVersion {
 
     @Id

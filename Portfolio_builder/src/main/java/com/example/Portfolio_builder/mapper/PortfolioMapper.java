@@ -1,14 +1,13 @@
 package com.example.Portfolio_builder.mapper;
 
-
-import com.example.Portfolio_builder.dto.PortfolioDTO;
-import com.example.Portfolio_builder.entity.Portfolio;
+import com.example.Portfolio_builder.dto.ProfileRequestDTO;
+import com.example.Portfolio_builder.dto.ProfileResponseDTO;
+import com.example.Portfolio_builder.entity.Profile;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
     public interface PortfolioMapper {
 
-        Portfolio toEntity(PortfolioDTO dto);
+    Profile toEntity(ProfileRequestDTO dto);
 
-        PortfolioDTO toDto(Portfolio portfolio);
-    }
+    ProfileResponseDTO toDto(Profile profile);    }

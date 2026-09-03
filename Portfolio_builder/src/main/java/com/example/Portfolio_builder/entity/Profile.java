@@ -1,10 +1,14 @@
 package com.example.Portfolio_builder.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Profile {
 
         @Id

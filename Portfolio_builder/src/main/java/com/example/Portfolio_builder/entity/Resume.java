@@ -1,12 +1,17 @@
 package com.example.Portfolio_builder.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Resume {
 
     @Id
@@ -17,7 +22,6 @@ public class Resume {
     @JoinColumn(name = "profile_id")
     private Profile profile;
 
-    // Which version did the user choose?
     @ManyToOne
     @JoinColumn(name = "chosen_version_id")
     private ResumeVersion chosenVersion;
