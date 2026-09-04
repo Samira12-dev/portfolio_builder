@@ -1,18 +1,29 @@
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
+import Navbar from "../../components/Navbar/Navbar";
+import Hero from "../../components/Navbar/Hero";
+import TrustedBy from "../../components/TrustedBy/TrustedBy";
+import Features from "../../components/Features/Features";
+import Templates from "../Templates/Templates";
 
-import "./App.css";
+import Pricing from "../../components/Pricing/Pricing";
+import CTA from "../../components/CTA/CTA";
+import Footer from "../../components/Footer/Footer";
 
+import "../../App.css";
 function Landing() {
   return (
     <div className="landing-page">
-
       <Navbar />
 
       <main>
         <Hero />
-      </main>
+        <TrustedBy />
+        <Features />
+        <Templates />
+        <Pricing/>
+        <CTA/>
+         </main>
 
+         <Footer/>
     </div>
   );
 }

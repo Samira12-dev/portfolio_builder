@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import {
+  FiArrowLeft,
+  FiExternalLink,
   FiGithub,
   FiLinkedin,
-  FiExternalLink,
+  FiCheckCircle,
 } from "react-icons/fi";
 import "../../App.css";
 
-function PublicPortfolio() {
+function PortfolioPreview() {
   const [profile, setProfile] = useState({});
   const [projects, setProjects] = useState([]);
   const [skills, setSkills] = useState([]);
   const [experiences, setExperiences] = useState([]);
   const [education, setEducation] = useState([]);
   const [template, setTemplate] = useState("modern");
+  const [isPublished, setIsPublished] = useState(false);
 
   useEffect(() => {
     setProfile(
@@ -38,7 +42,16 @@ function PublicPortfolio() {
     setTemplate(
       localStorage.getItem("portfolioTemplate") || "modern"
     );
+
+    setIsPublished(
+      localStorage.getItem("portfolioPublished") === "true"
+    );
   }, []);
+
+  const handlePublish = () => {
+    localStorage.setItem("portfolioPublished", "true");
+    setIsPublished(true);
+  };
 
   const fullName = profile.fullName || "Your Name";
 
@@ -47,7 +60,7 @@ function PublicPortfolio() {
 
   const bio =
     profile.bio ||
-    "Welcome to my professional portfolio.";
+    "I am a passionate developer building modern and useful digital experiences.";
 
   const initials = fullName
     .split(" ")
@@ -57,78 +70,110 @@ function PublicPortfolio() {
     .toUpperCase();
 
   return (
-    <div className={`public-portfolio ${template}`}>
+    <div className={`portfolio-preview ${template}`}>
 
-      {/* Hero */}
-      <section className="public-hero">
+      {/* Toolbar */}
+      <div className="preview-toolbar">
 
-        <div className="public-avatar">
-          {initials}
-        </div>
+        <Link to="/dashboard">
+          <FiArrowLeft />
+          Dashboard
+        </Link>
 
-        <p className="public-role">
-          {jobTitle}
-        </p>
+        <div className="preview-toolbar-actions">
 
-        <h1>{fullName}</h1>
+          <Link to="/dashboard/templates">
+            Change Template
+          </Link>
 
-        <p className="public-bio">
-          {bio}
-        </p>
+          <a
+            href="/portfolio/samira"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <FiExternalLink />
+            Open Portfolio
+          </a>
 
-        <div className="public-socials">
+          <button
+            className="publish-button"
+            onClick={handlePublish}
+          >
+            <FiCheckCircle />
 
-          {profile.github && (
-            <a
-              href={profile.github}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FiGithub />
-            </a>
-          )}
-
-          {profile.linkedin && (
-            <a
-              href={profile.linkedin}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FiLinkedin />
-            </a>
-          )}
-
-          {profile.website && (
-            <a
-              href={profile.website}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FiExternalLink />
-            </a>
-          )}
+            {isPublished
+              ? "Published"
+              : "Publish Portfolio"}
+          </button>
 
         </div>
 
-      </section>
+      </div>
 
-      <main className="public-content">
+      {/* Portfolio */}
+      <div className="portfolio-page">
+
+        {/* Hero */}
+        <section className="portfolio-hero">
+
+          <div className="portfolio-avatar">
+            {initials}
+          </div>
+
+          <p className="portfolio-role">
+            {jobTitle}
+          </p>
+
+          <h1>{fullName}</h1>
+
+          <p className="portfolio-bio">
+            {bio}
+          </p>
+
+          <div className="portfolio-socials">
+
+            {profile.github && (
+              <a
+                href={profile.github}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FiGithub />
+              </a>
+            )}
+
+            {profile.linkedin && (
+              <a
+                href={profile.linkedin}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FiLinkedin />
+              </a>
+            )}
+
+          </div>
+
+        </section>
 
         {/* About */}
         {bio && (
-          <section className="public-section">
+          <section className="portfolio-section">
+
             <h2>About Me</h2>
+
             <p>{bio}</p>
+
           </section>
         )}
 
         {/* Skills */}
         {skills.length > 0 && (
-          <section className="public-section">
+          <section className="portfolio-section">
 
             <h2>Skills</h2>
 
-            <div className="public-skills">
+            <div className="portfolio-skills">
 
               {skills.map((skill, index) => (
                 <span key={index}>
@@ -143,16 +188,16 @@ function PublicPortfolio() {
 
         {/* Experience */}
         {experiences.length > 0 && (
-          <section className="public-section">
+          <section className="portfolio-section">
 
             <h2>Experience</h2>
 
-            <div className="public-experience">
+            <div className="portfolio-experience">
 
               {experiences.map((experience) => (
-                <article
+                <div
+                  className="portfolio-experience-item"
                   key={experience.id}
-                  className="public-experience-card"
                 >
 
                   <h3>
@@ -172,7 +217,7 @@ function PublicPortfolio() {
                     {experience.description}
                   </p>
 
-                </article>
+                </div>
               ))}
 
             </div>
@@ -182,21 +227,25 @@ function PublicPortfolio() {
 
         {/* Education */}
         {education.length > 0 && (
-          <section className="public-section">
+          <section className="portfolio-section">
 
             <h2>Education</h2>
 
-            <div className="public-education">
+            <div className="portfolio-education">
 
               {education.map((item) => (
-                <article
+                <div
+                  className="portfolio-education-item"
                   key={item.id}
-                  className="public-education-card"
                 >
 
-                  <h3>{item.degree}</h3>
+                  <h3>
+                    {item.degree}
+                  </h3>
 
-                  <strong>{item.school}</strong>
+                  <strong>
+                    {item.school}
+                  </strong>
 
                   {item.field && (
                     <p>{item.field}</p>
@@ -207,7 +256,7 @@ function PublicPortfolio() {
                     {item.endDate || "Present"}
                   </span>
 
-                </article>
+                </div>
               ))}
 
             </div>
@@ -217,16 +266,16 @@ function PublicPortfolio() {
 
         {/* Projects */}
         {projects.length > 0 && (
-          <section className="public-section">
+          <section className="portfolio-section">
 
             <h2>Projects</h2>
 
-            <div className="public-projects">
+            <div className="portfolio-projects">
 
               {projects.map((project) => (
                 <article
+                  className="portfolio-project-card"
                   key={project.id}
-                  className="public-project-card"
                 >
 
                   <h3>
@@ -238,7 +287,7 @@ function PublicPortfolio() {
                   </p>
 
                   {project.technologies && (
-                    <div className="public-tech">
+                    <div className="project-tech">
 
                       {project.technologies
                         .split(",")
@@ -251,7 +300,7 @@ function PublicPortfolio() {
                     </div>
                   )}
 
-                  <div className="public-project-links">
+                  <div className="project-links">
 
                     {project.githubUrl && (
                       <a
@@ -285,16 +334,10 @@ function PublicPortfolio() {
           </section>
         )}
 
-      </main>
-
-      <footer className="public-footer">
-        <p>
-          Built with PortfolioAI
-        </p>
-      </footer>
+      </div>
 
     </div>
   );
 }
 
-export default PublicPortfolio;
+export default PortfolioPreview;
