@@ -14,6 +14,7 @@ import Templates from "./pages/Dashboard/Templates";
 import PortfolioPreview from "./pages/Dashboard/PortfolioPreview";
 import PublicPortfolio from "./pages/PublicPortfolio/PublicPortfolio";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import Education from "./pages/Dashboard/Education";
 
 function App() {
   return (
@@ -40,7 +41,7 @@ function App() {
           <Route path="experience" element={<Experience />} />
           <Route path="templates" element={<Templates />} />
           <Route path="preview" element={<PortfolioPreview />} />
-
+          <Route path="education" element={<Education />} />
         </Route>
         <Route path="/portfolio/samira" element={<PublicPortfolio />} />
 

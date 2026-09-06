@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   FiGithub,
   FiLinkedin,
   FiExternalLink,
+  FiLock,
 } from "react-icons/fi";
 import "../../App.css";
 
@@ -13,6 +15,7 @@ function PublicPortfolio() {
   const [experiences, setExperiences] = useState([]);
   const [education, setEducation] = useState([]);
   const [template, setTemplate] = useState("modern");
+  const [isPublished, setIsPublished] = useState(false);
 
   useEffect(() => {
     setProfile(
@@ -38,7 +41,41 @@ function PublicPortfolio() {
     setTemplate(
       localStorage.getItem("portfolioTemplate") || "modern"
     );
+
+    setIsPublished(
+      localStorage.getItem("portfolioPublished") === "true"
+    );
   }, []);
+
+  // Portfolio not published
+  if (!isPublished) {
+    return (
+      <div className="public-portfolio-unpublished">
+        <div className="unpublished-card">
+
+          <div className="unpublished-icon">
+            <FiLock />
+          </div>
+
+          <h1>Portfolio Not Published</h1>
+
+          <p>
+            This portfolio is currently private.
+            The owner needs to publish it before it becomes
+            publicly available.
+          </p>
+
+          <Link
+            to="/dashboard"
+            className="btn-primary"
+          >
+            Go to Dashboard
+          </Link>
+
+        </div>
+      </div>
+    );
+  }
 
   const fullName = profile.fullName || "Your Name";
 
@@ -194,9 +231,13 @@ function PublicPortfolio() {
                   className="public-education-card"
                 >
 
-                  <h3>{item.degree}</h3>
+                  <h3>
+                    {item.degree}
+                  </h3>
 
-                  <strong>{item.school}</strong>
+                  <strong>
+                    {item.school}
+                  </strong>
 
                   {item.field && (
                     <p>{item.field}</p>
@@ -288,9 +329,7 @@ function PublicPortfolio() {
       </main>
 
       <footer className="public-footer">
-        <p>
-          Built with PortfolioAI
-        </p>
+        <p>Built with PortfolioAI</p>
       </footer>
 
     </div>
