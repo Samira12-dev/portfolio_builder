@@ -1,8 +1,10 @@
 package com.example.Portfolio_builder.service;
 
+import com.example.Portfolio_builder.dto.LoginDTO;
 import com.example.Portfolio_builder.dto.RegisterUserDTO;
 import com.example.Portfolio_builder.entity.User;
 import com.example.Portfolio_builder.repo.UserRepository;
+import com.example.Portfolio_builder.security.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,7 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final com.example.Portfolio_builder.security.JwtService jwtService;
+    private final JwtService jwtService;
 
     public String register(RegisterUserDTO dto) {
         if (userRepository.existsByEmail(dto.getEmail()))

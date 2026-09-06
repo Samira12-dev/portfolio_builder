@@ -6,8 +6,8 @@ import com.example.Portfolio_builder.entity.Project;
 import com.example.Portfolio_builder.entity.Skill;
 import com.example.Portfolio_builder.repo.*;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
-import org.hibernate.sql.Template;
+import org.springframework.beans.factory.annotation.Value;
+import com.example.Portfolio_builder.entity.Template;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -44,7 +44,7 @@ public class PortfolioGenerationService {
         String html = callClaude(prompt);
 
         String slug = profile.getUser().getUsername().toLowerCase()
-                      + "-" + System.currentTimeMillis() % 10000;
+                + "-" + System.currentTimeMillis() % 10000;
 
         Portfolio portfolio = portfolioRepository.findByProfileId(profileId)
                 .orElse(new Portfolio());
@@ -58,7 +58,7 @@ public class PortfolioGenerationService {
     }
 
     private String buildPortfolioPrompt(Profile p, List<Project> projects,
-                                         List<Skill> skills, Template template) {
+                                        List<Skill> skills, Template template) {
         StringBuilder sb = new StringBuilder();
         sb.append("Generate a complete, beautiful, single-file HTML portfolio website.\n");
         sb.append("Style: ").append(template.getTheme()).append(" theme.\n\n");
@@ -101,17 +101,17 @@ public class PortfolioGenerationService {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         Map<String, Object> body = Map.of(
-            "model", "claude-sonnet-4-20250514",
-            "max_tokens", 4096,
-            "messages", List.of(Map.of("role", "user", "content", prompt))
+                "model", "claude-sonnet-4-20250514",
+                "max_tokens", 4096,
+                "messages", List.of(Map.of("role", "user", "content", prompt))
         );
 
         HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers);
         ResponseEntity<Map> response = rest.postForEntity(
-            "https://api.anthropic.com/v1/messages", request, Map.class);
+                "https://api.anthropic.com/v1/messages", request, Map.class);
 
         List<Map<String, Object>> content = (List<Map<String, Object>>)
-            response.getBody().get("content");
+                response.getBody().get("content");
         return (String) content.get(0).get("text");
     }
 }
